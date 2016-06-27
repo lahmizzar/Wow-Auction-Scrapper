@@ -1,0 +1,13 @@
+{
+  "apps" : [{
+    // Application #1
+    "name"        : "auction-scrapper",
+    "script"      : "app.js",
+    "exec_mode" : "fork",
+    "watch"       : true,
+    "cwd"         : "/srv/node/auction-scrapper",
+    "error_file" : "/srv/node/auction-scrapper/log/aucscrap-err.log",
+    "out_file"   : "/srv/node/auction-scrapper/log/aucscrap-out.log",
+    //"pid_file"   : "/srv/node/auction-scrapper/pid/aucscrap.pid"
+  }]
+}
