@@ -18,6 +18,19 @@ router.get('/', function(req, res) {
 });
 
 app.use(router);
+var AuctionCtrl = require('./controllers/auctions');
+var auctions = express.Router();
+
+auctions.route('/api/auctions')
+    .get(AuctionCtrl.findAllAuctions)
+    .post(AuctionCtrl.addAuction);
+
+auctions.route('/api/auctions/:id')
+    .get(AuctionCtrl.findById)
+    .put(AuctionCtrl.updateAuction)
+    .delete(AuctionCtrl.deleteAuction);
+
+app.use('/api', auctions);
 
 mongoose.connect('mongodb://localhost/auctionscrapper', function (err) {
     if(err) {
