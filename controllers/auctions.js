@@ -1,8 +1,11 @@
 /**
  * Created by chuclucillo on 27/06/16.
  */
-var mongoose = require('mongoose');
-var Auction  = mongoose.model('Auction');
+'use strict';
+var mongoose, AuctionMdl, Auction;
+mongoose = require('mongoose');
+AuctionMdl = require('../models/auctions');
+Auction = mongoose.model('Auction');
 
 
 exports.findAllAuctions = function(req, res) {
@@ -15,7 +18,7 @@ exports.findAllAuctions = function(req, res) {
 };
 exports.findById = function(req, res) {
     Auction.findById(req.params.id, function(err, auction) {
-        if(err) return res.send(500, err.message);
+        if(err) return res.status(500).send( err.message);
 
         console.log('GET /auction/' + req.params.id);
         res.status(200).jsonp(auction);

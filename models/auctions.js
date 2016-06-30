@@ -1,8 +1,10 @@
 /**
  * Created by chuclucillo on 27/06/16.
  */
-var mongoose = require('mongoose'),
-    Schema   = mongoose.Schema;
+'use strict';
+var mongoose, Schema;
+mongoose = require('mongoose');
+Schema = mongoose.Schema;
 
 var auctionSchema = new Schema({
     fecha:              { type: Date, default: Date.now, required: true },
