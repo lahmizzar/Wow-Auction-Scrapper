@@ -4,7 +4,7 @@
 'use strict';
 var mongoose, AuctionMdl, Auction;
 mongoose = require('mongoose');
-AuctionMdl = require('../models/auctions');
+AuctionMdl = require('./auctions');
 Auction = mongoose.model('Auction');
 
 

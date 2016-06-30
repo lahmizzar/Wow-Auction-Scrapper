@@ -22,9 +22,12 @@ router.get('/', function(req, res) {
     res.send("Front-page");
 });
 
+
+//Acceso a datos
 app.use(router);
-var AuctionCtrl = require('./controllers/auctions');
-var auctions = express.Router();
+var AuctionCtrl,auctions;
+AuctionCtrl = require('./controllers/auctions');
+auctions = express.Router();
 
 auctions.route('/auctions')
     .get(AuctionCtrl.findAllAuctions)
@@ -44,6 +47,8 @@ mongoose.connect('mongodb://' + nconf.get('database:host') + ':' + nconf.get('da
         console.log("Auction Scrapper: escuchando en el puerto " + nconf.get('server:port'));
     });
 });
+
+
 
 //Procesos de limpieza para el cierre
 function exitHandler(options, err) {
