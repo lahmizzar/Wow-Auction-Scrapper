@@ -35,6 +35,10 @@ exports.stopSchedules = function (){
     }
 };
 var task_auctions = function() {
-    console.log(api_client.getAuctions());
+    api_client.getAuctions()
+        .then(function (data) {
+            console.log(data);
+        })
+
 };
 
