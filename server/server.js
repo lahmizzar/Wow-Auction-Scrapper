@@ -10,7 +10,7 @@ methodOverride = require("method-override");
 mongoose = require("mongoose");
 app = express();
 
-nconf.file({ file: './conf.json' });
+nconf.file({ file: '../conf.json' });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,7 +37,7 @@ auctions.route('/auctions/:id')
     .get(AuctionCtrl.findById)
     .put(AuctionCtrl.updateAuction)
     .delete(AuctionCtrl.deleteAuction);
-
+console.log('mongodb://' + nconf.get('database:host') + ':' + nconf.get('database:port') + '/' + nconf.get('database:db'));
 app.use('/api', auctions);
 mongoose.connect('mongodb://' + nconf.get('database:host') + ':' + nconf.get('database:port') + '/' + nconf.get('database:db'), function (err) {
     if(err) {
