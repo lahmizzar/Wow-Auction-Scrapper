@@ -2,11 +2,14 @@
  * Created by chuclucillo on 30/06/16.
  */
 'use strict';
-var cron, api_client, cron_auctions, status;
+var cron, api_client, cron_auctions, status, nconf;
 cron = require('node-cron');
+nconf = require("nconf");
 api_client = require('./api_client');
 cron_auctions = null;
 status = 'stopped';
+
+nconf.file({ file: './conf.json' });
 
 exports.initSchedules = function() {
     status = 'running';
