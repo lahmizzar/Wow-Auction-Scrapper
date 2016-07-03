@@ -7,6 +7,7 @@ mongoose = require('mongoose');
 Schema = mongoose.Schema;
 
 var auctionSchema = new Schema({
+    _id:                { type: number},
     fecha:              { type: Date, default: Date.now, required: true },
     fecha_actualizado:  { type: Date, default: Date.now, required: true },
     finalizada:         { type: Boolean, default: false },
@@ -32,6 +33,6 @@ var auctionSchema = new Schema({
     petLevel:           { type: Number },
     petQualityId:       { type: Number },
     raw:                { type: String }
-});
+}, { _id: false });
 
 module.exports = mongoose.model('Auction', auctionSchema);

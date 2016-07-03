@@ -30,13 +30,13 @@ AuctionCtrl = require('./controllers/auctions');
 auctions = express.Router();
 
 auctions.route('/auctions')
-    .get(AuctionCtrl.findAllAuctions)
-    .put(AuctionCtrl.addAuction);
+    .get(AuctionCtrl.findAllAPI)
+    .put(AuctionCtrl.addAPI);
 
 auctions.route('/auctions/:id')
-    .get(AuctionCtrl.findById)
-    .put(AuctionCtrl.updateAuction)
-    .delete(AuctionCtrl.deleteAuction);
+    .get(AuctionCtrl.findByIdAPI)
+    .put(AuctionCtrl.updateAPI)
+    .delete(AuctionCtrl.deleteAPI);
 
 app.use('/api', auctions);
 mongoose.connect('mongodb://' + nconf.get('database:host') + ':' + nconf.get('database:port') + '/' + nconf.get('database:db'), function (err) {
@@ -55,6 +55,8 @@ scrapper.initSchedules();
 
 //Procesos de limpieza para el cierre
 function exitHandler(options, err) {
+    if(scrapper.statusSchedules()!='stopped')
+        scrapper.stopSchedules();
 
     if (options.cleanup) console.log('clean');
     if (err) console.log(err.stack);
