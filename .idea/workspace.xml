@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bdc058ca-b9b0-43f3-aa38-00b0d1dcefa0" name="Default" comment="mejoras controller auctions">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/aux/peticiones.js" />
+    <list default="true" id="bdc058ca-b9b0-43f3-aa38-00b0d1dcefa0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/api_client.js" afterPath="$PROJECT_DIR$/server/controllers/api_client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/auctions.js" afterPath="$PROJECT_DIR$/server/controllers/auctions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/scrapper.js" afterPath="$PROJECT_DIR$/server/controllers/scrapper.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/auctions.js" afterPath="$PROJECT_DIR$/server/models/auctions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="auction-scrapper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,23 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scrapper.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scrapper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/controllers/scrapper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="49" column="59" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
-              <folding>
-                <element signature="e#0#46#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="auctions.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/models/auctions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+            <state relative-caret-position="840">
+              <caret line="58" column="86" selection-start-line="58" selection-start-column="86" selection-end-line="58" selection-end-column="86" />
               <folding>
                 <element signature="e#0#46#0" expanded="false" />
               </folding>
@@ -70,8 +51,8 @@
       <file leaf-file-name="auctions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/controllers/auctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+            <state relative-caret-position="315">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -138,9 +119,9 @@
         <option value="$PROJECT_DIR$/conf.json" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/server/aux/peticiones.js" />
-        <option value="$PROJECT_DIR$/server/controllers/scrapper.js" />
         <option value="$PROJECT_DIR$/server/controllers/auctions.js" />
         <option value="$PROJECT_DIR$/server/models/auctions.js" />
+        <option value="$PROJECT_DIR$/server/controllers/scrapper.js" />
       </list>
     </option>
   </component>
@@ -441,7 +422,7 @@
       <workItem from="1467312037676" duration="6459000" />
       <workItem from="1467320331227" duration="3910000" />
       <workItem from="1467401363398" duration="7526000" />
-      <workItem from="1467575992447" duration="5930000" />
+      <workItem from="1467575992447" duration="6338000" />
     </task>
     <task id="LOCAL-00001" summary="Gitignore añadido">
       <created>1467062541624</created>
@@ -499,11 +480,18 @@
       <option name="project" value="LOCAL" />
       <updated>1467323340391</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="mejoras controller auctions">
+      <created>1467582014340</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1467582014340</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50839000" />
+    <option name="totallyTimeSpent" value="51247000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="2562" height="1309" extended-state="6" />
@@ -675,16 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/aux/peticiones.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -695,10 +673,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/scrapper.js">
+    <entry file="file://$PROJECT_DIR$/server/models/auctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="49" column="59" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
+        <state relative-caret-position="525">
+          <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#46#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
           <folding>
             <element signature="e#0#46#0" expanded="false" />
           </folding>
@@ -707,16 +695,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/controllers/auctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+        <state relative-caret-position="315">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/auctions.js">
+    <entry file="file://$PROJECT_DIR$/server/controllers/scrapper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+        <state relative-caret-position="840">
+          <caret line="58" column="86" selection-start-line="58" selection-start-column="86" selection-end-line="58" selection-end-column="86" />
           <folding>
             <element signature="e#0#46#0" expanded="false" />
           </folding>

@@ -47,7 +47,16 @@ var task_auctions = function() {
                     .then(function (data){
                         //console.log(typeof(data));
                         data = JSON.parse(data);
-                        auctionsCtrl.add(data.auctions[0]);
+                        var item = data.auctions[0];
+                        var response = null;
+                        if(!auctionsCtrl.findById(item.auc))
+                            response = auctionsCtrl.add(item);
+                        else
+                            response = auctionsCtrl.update(item.nac, item);
+                        if(response.success)
+                            console.log('Datos guardados correctamente.');
+                        else
+                            console.log('Error guardando datos: ' + response.message);
                     });
             }
         })
