@@ -8,7 +8,7 @@ nconf = require("nconf");
 nconf.file({ file: './conf.json' });
 
 //Función Auxiliar
-exports.peticion =  function(url) {
+exports.request =  function(url) {
     return new Promise(function (resolve, reject) {
         const lib = url.startsWith('https') ? require('https') : require('http');
         lib.get(url, function (response) {
@@ -25,7 +25,7 @@ exports.peticion =  function(url) {
         });
     });
 };
-exports.peticionSSL = function(ruta){
+exports.requestSSL = function(ruta){
     return new Promise(function(resolve, reject) {
         var options = {
             hostname: nconf.get('battlenet-api:host'),

@@ -43,7 +43,7 @@ var task_auctions = function() {
             console.log(parseInt(data.files[0].lastModified), parseInt(nconf.get('lastupdate:auctiondb')));
             if(parseInt(data.files[0].lastModified)>parseInt(nconf.get('lastupdate:auctiondb'))){
                 nconf.set('lastupdate:auctiondb', data.files[0].lastModified);
-                peticiones.peticion(data.files[0].url)
+                requests.request(data.files[0].url)
                     .then(function (data){
                         //console.log(typeof(data));
                         data = JSON.parse(data);

@@ -2,24 +2,24 @@
  * Created by chuclucillo on 27/06/16.
  */
 'use strict';
-var mongoose, AuctionMdl, Auction;
+var mongoose, AuctionMdl, Auction, findById, findByIdAPI, findAll, findAllAPI, add, addAPI, update, updateAPI, remove, removeAPI;
 mongoose = require('mongoose');
 AuctionMdl = require('../models/auctions');
 Auction = mongoose.model('Auction');
 
-exports.findById = function(id){
+findById = function(id){
     Auction.findById(id, function(err, auction) {
         if(err) return {"success": false, "message":err.message};
         return {"success":true, "message":"", "data": auction};
     });
 };
-exports.findAll = function(){
+findAll = function(){
     Auction.find(function(err, auctions) {
         if(err) return {"success": false, "message":err.message};
         return {"success":true, "message":"", "data": auctions};
     });
 };
-exports.add = function(data){
+add = function(data){
     var modifiers = [];
     var bonusLists = [];
     if(typeof(data.modifiers)!='undefined') {
@@ -63,7 +63,7 @@ exports.add = function(data){
         return {"success": true, "message": "", "data": auction};
     });
 };
-exports.update = function(id, data){
+update = function(id, data){
     Auction.findById(id, function(err, auction) {
         var modifiers = [];
         var bonusLists = [];
@@ -105,7 +105,7 @@ exports.update = function(id, data){
         });
     });
 };
-exports.remove = function(id){
+remove = function(id){
     Auction.findById(id, function(err, auction) {
         auction.remove(function(err) {
             if(err)
@@ -115,31 +115,31 @@ exports.remove = function(id){
     });
 };
 
-exports.findAllAPI = function(req, res) {
-    var response = exports.findAll();
+findAllAPI = function(req, res) {
+    var response = module.exports.findAll();
     if(!response.success)
         res.status(500).send(response.message);
 
     console.log('GET /auctions');
     res.status(200).jsonp(response.data);
 };
-exports.findByIdAPI = function(req, res) {
-    var response = exports.findById(req.params.id);
+findByIdAPI = function(req, res) {
+    var response = module.exports.findById(req.params.id);
     if(!response.success)
         res.status(500).send(response.message);
 
     console.log('GET /auction/' + req.params.id);
     res.status(200).jsonp(response.data);
 };
-exports.addAPI = function(req, res) {
-    var response = exports.add(req.body);
+addAPI = function(req, res) {
+    var response = module.exports.add(req.body);
     if(!response.success)
         return res.status(500).send(response.message);
     console.log('PUT /auction/');
     return res.status(200).jsonp(response.data);
 };
-exports.updateAPI = function(req, res) {
-    var response = exports.update(req.params.id, req.body);
+updateAPI = function(req, res) {
+    var response = module.exports.update(req.params.id, req.body);
 
     if(!response.success)
         return res.status(500).send(response.message);
@@ -147,11 +147,24 @@ exports.updateAPI = function(req, res) {
     console.log('PUT /auctions/' + req.params.id);
     return res.status(200).jsonp(response.data);
 };
-exports.deleteAPI = function(req, res) {
-    var response = exports.remove(req.params.id);
+removeAPI = function(req, res) {
+    var response = module.exports.remove(req.params.id);
     if(!response.success)
         return res.status(500).send(response.message);
 
     console.log('DELETE /auctions/' + req.params.id);
     res.status(200).send();
+};
+
+module.exports = {
+    findAll: findAll,
+    findAllAPI: findAllAPI,
+    findById: findById,
+    findByIdAPI: findByIdAPI,
+    add: add,
+    addAPI: addAPI,
+    update: update,
+    updateAPI: updateAPI,
+    remove: remove,
+    removeAPI: removeAPI
 };
