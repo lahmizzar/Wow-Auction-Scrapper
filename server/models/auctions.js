@@ -7,7 +7,7 @@ mongoose = require('mongoose');
 Schema = mongoose.Schema;
 
 var auctionSchema = new Schema({
-    _id:                { type: number},
+    _id:                { type: Number},
     fecha:              { type: Date, default: Date.now, required: true },
     fecha_actualizado:  { type: Date, default: Date.now, required: true },
     finalizada:         { type: Boolean, default: false },

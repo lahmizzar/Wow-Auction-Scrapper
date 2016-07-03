@@ -39,8 +39,8 @@ exports.stopSchedules = function (){
 var task_auctions = function() {
     api_client.getAuctions()
         .then(function (data) {
-            console.log(data);
             data = JSON.parse(data);
+            console.log(parseInt(data.files[0].lastModified), parseInt(nconf.get('lastupdate:auctiondb')));
             if(parseInt(data.files[0].lastModified)>parseInt(nconf.get('lastupdate:auctiondb'))){
                 nconf.set('lastupdate:auctiondb', data.files[0].lastModified);
                 peticiones.peticion(data.files[0].url)
