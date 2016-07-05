@@ -2,12 +2,12 @@
  * Created by chuclucillo on 29/06/16.
  */
 'use strict';
-var nconf, peticiones;
+var nconf, requests;
 nconf = require("nconf");
-peticiones = require("../aux/peticiones");
+requests = require("../aux/requests");
 
 nconf.file({ file: './conf.json' });
 
 exports.getAuctions = function() {
-    return peticiones.peticionSSL('/auction/data');
+    return requests.requestSSL('/auction/data');
 };

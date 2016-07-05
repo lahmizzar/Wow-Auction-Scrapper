@@ -36,7 +36,7 @@ auctions.route('/auctions')
 auctions.route('/auctions/:id')
     .get(AuctionCtrl.findByIdAPI)
     .put(AuctionCtrl.updateAPI)
-    .delete(AuctionCtrl.deleteAPI);
+    .delete(AuctionCtrl.removeAPI);
 
 app.use('/api', auctions);
 mongoose.connect('mongodb://' + nconf.get('database:host') + ':' + nconf.get('database:port') + '/' + nconf.get('database:db'), function (err) {
@@ -57,7 +57,7 @@ scrapper.initSchedules();
 function exitHandler(options, err) {
     if(scrapper.statusSchedules()!='stopped')
         scrapper.stopSchedules();
-
+    nconf.save();
     if (options.cleanup) console.log('clean');
     if (err) console.log(err.stack);
     if (options.exit) process.exit();

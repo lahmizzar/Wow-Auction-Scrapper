@@ -40,3 +40,6 @@ jspm_packages
 
 # CONF FILES
 conf.json
+
+#webstorm project files
+.idea
