@@ -8,7 +8,7 @@ AuctionMdl = require('../models/auctions');
 Auction = mongoose.model('Auction');
 
 findById = function(id){
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         Auction.findById(id, function(err, auction) {
             if( err != null){
                 resolve({"success": false, "message": err.message});
@@ -19,7 +19,7 @@ findById = function(id){
     });
 };
 findAll = function(){
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         Auction.find({}, function (err, auctions) {
             if (err != null) {
                 resolve({"success": false, "message": err.message});
@@ -30,17 +30,17 @@ findAll = function(){
     });
 };
 add = function(data){
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         var modifiers = [];
         var bonusLists = [];
         if (typeof(data.modifiers) != 'undefined') {
             data.modifiers.forEach(function (modifier) {
-                modifiers.put({'type': modifier.type, 'value': modifier.value});
+                modifiers.push({'type': modifier.type, 'value': modifier.value});
             });
         }
         if (typeof(data.bonusLists) != 'undefined') {
             data.bonusLists.forEach(function (bonusList) {
-                bonusLists.put({'bonusListId': bonusList.bonusListId});
+                bonusLists.push({'bonusListId': bonusList.bonusListId});
             });
         }
         var auction = new Auction({
@@ -66,9 +66,9 @@ add = function(data){
             petQualityId: data.petQualityId,
             raw: JSON.stringify(data)
         });
-
         auction.save(function (err, auction) {
             if (err != null) {
+                console.log(err);
                 resolve({"success": false, "message": err});
             } else {
                 resolve({"success": true, "message": "", "data": auction});
@@ -77,9 +77,9 @@ add = function(data){
     });
 };
 update = function(id, data){
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         Auction.findById(id, function (err, auction) {
-            if(auction == null){ resolve({"success": false, "message": "no exists"}); return null };
+            if(auction == null){ resolve({"success": false, "message": "no exists"}); return null }
             /*var modifiers = [];
             var bonusLists = [];
             if (typeof(data.modifiers) != 'undefined') {
@@ -125,7 +125,7 @@ update = function(id, data){
     });
 };
 remove = function(id){
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         Auction.findById(id, function (err, auction) {
             auction.remove(function (err) {
                 if (err != null) {

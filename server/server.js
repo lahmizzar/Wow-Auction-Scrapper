@@ -57,7 +57,7 @@ scrapper.initSchedules();
 function exitHandler(options, err) {
     if(scrapper.statusSchedules()!='stopped')
         scrapper.stopSchedules();
-    nconf.save();
+    //nconf.save();
     if (options.cleanup) console.log('clean');
     if (err) console.log(err.stack);
     if (options.exit) process.exit();

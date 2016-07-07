@@ -98,12 +98,14 @@ var task_auctions = function() {
                 auctionsCtrl.findById(auction.auc)
                     .then(function (response) {
                         if (response.success && response.data != null) {
+                            //console.log('si ta:' + auction.auc);
                             auctionsCtrl.update(auction.auc, auction).then(function (response) {
                                 if (!response.success)
                                     console.log('Error update: ' + auction.auc + ' - ' + response.message);
                                 callback_1(null);
                             });
                         } else {
+
                             auctionsCtrl.add(auction).then(function (response) {
                                 if (!response.success)
                                     console.log('Error add: ' + auction.auc + ' - ' + response.message);
@@ -117,7 +119,7 @@ var task_auctions = function() {
             console.log('- Ending Auctions ended...');
             callback_1(null, 'done');
         }
-    ],function(err, results) {
+    ],function(err) {
         if(err)
             console.log(err.message);
         console.log('-== End Get API Auctions==-');
