@@ -43,7 +43,6 @@ add = function(data){
                 bonusLists.put({'bonusListId': bonusList.bonusListId});
             });
         }
-
         var auction = new Auction({
             _id: data.auc,
             fecha: Date.now(),
@@ -70,7 +69,7 @@ add = function(data){
 
         auction.save(function (err, auction) {
             if (err != null) {
-                resolve({"success": false, "message": err.message});
+                resolve({"success": false, "message": err});
             } else {
                 resolve({"success": true, "message": "", "data": auction});
             }

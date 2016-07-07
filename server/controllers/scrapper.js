@@ -69,37 +69,53 @@ exports.stopSchedules = function (){
 var task_auctions = function() {
     console.log('-== Begin Get API Auctions ==-');
     var timer= new Date();
-    var local_vars = {};
-    local_vars.count=0;
-    async.series([
+    async.waterfall([
         function(callback_1) {
             console.log('- Asking API for auctions file...');
             api_client.getAuctions()
                 .then(function (data) {
                     data = JSON.parse(data);
                     if(parseInt(data.files[0].lastModified) <= parseInt(nconf.get('lastupdate:auctiondb'))) return callback_1(new Error('Actions package already processed'));
-                    local_vars.api_data = data;
-                    //nconf.set('lastupdate:auctiondb', data.files[0].lastModified);
-                    callback_1();
+
+                    nconf.set('lastupdate:auctiondb', data.files[0].lastModified);
+                    callback_1(null, data);
                 });
         },
-        function(callback_1) {
-            console.log('- Downloading Auctions file...');
-            requests.request(local_vars.api_data.files[0].url)
+        function(data, callback_1) {
+            var last_mod = data.files[0].lastModified;
+            console.log('- Downloading Auctions file...' + last_mod);
+            requests.request(data.files[0].url)
                 .then(function(data){
                     console.log('- Processing Auctions file...');
                     data = JSON.parse(data);
-                    local_vars.auctions = data.auctions;
-                    async.eachLimit(local_vars.auctions, 4, function(auction, callback_2){
-                        local_vars.count++;
-                        console.log(local_vars.count, '/', local_vars.auctions.length);
-                        callback_2();
-                    }, callback_1);
+                    callback_1(null, data);
                 });
+        },
+        function(data, callback_1){
+            var auctions = data.auctions;
+            console.log('principio:' + auctions.length);
+            auctions.forEach(function(auction){
+                auctionsCtrl.findById(auction.auc)
+                    .then(function (response) {
+                        if (response.success && response.data != null) {
+                            auctionsCtrl.update(auction.auc, auction).then(function (response) {
+                                if (!response.success)
+                                    console.log('Error update: ' + auction.auc + ' - ' + response.message);
+                                callback_1(null);
+                            });
+                        } else {
+                            auctionsCtrl.add(auction).then(function (response) {
+                                if (!response.success)
+                                    console.log('Error add: ' + auction.auc + ' - ' + response.message);
+                                callback_1(null);
+                            });
+                        }
+                    });
+            });
         },
         function(callback_1) {
             console.log('- Ending Auctions ended...');
-            callback_1();
+            callback_1(null, 'done');
         }
     ],function(err, results) {
         if(err)
@@ -108,4 +124,3 @@ var task_auctions = function() {
         console.log('Operation elapsed', ((new Date().getTime() - timer.getTime())/1000), 'seconds.');
     });
 };
-
