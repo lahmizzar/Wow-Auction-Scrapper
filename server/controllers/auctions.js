@@ -2,14 +2,14 @@
  * Created by chuclucillo on 27/06/16.
  */
 'use strict';
-var mongoose, AuctionMdl, Auction, findById, findByIdAPI, findAll, findAllAPI, add, addAPI, update, updateAPI, remove, removeAPI;
+var mongoose, AuctionMdl, Auction, findById, findByIdAPI, findEndedNotMarked, findAll, findAllAPI, add, addAPI, update, updateAPI, remove, removeAPI, end;
 mongoose = require('mongoose');
-AuctionMdl = require('../models/auctions');
-Auction = mongoose.model('Auction');
+Auction = require('../models/auctions');
+//Auction = mongoose.model('Auction', AuctionMdl);
 
 findById = function(id){
     return new Promise(function (resolve) {
-        Auction.findById(id, function(err, auction) {
+        Auction.findOne({_id: id}).exec(function(err, auction) {
             if( err != null){
                 resolve({"success": false, "message": err.message});
             }else {
@@ -20,7 +20,18 @@ findById = function(id){
 };
 findAll = function(){
     return new Promise(function (resolve) {
-        Auction.find({}, function (err, auctions) {
+        Auction.find({}).exec(function (err, auctions) {
+            if (err != null) {
+                resolve({"success": false, "message": err.message});
+            } else {
+                resolve({"success": true, "message": "", "data": auctions});
+            }
+        });
+    });
+};
+findEndedNotMarked = function(date){
+    return new Promise (function (resolve){
+        Auction.find({'finalizada':false, 'fecha_actualizado':{$lt: date}}).exec(function (err, auctions) {
             if (err != null) {
                 resolve({"success": false, "message": err.message});
             } else {
@@ -78,7 +89,7 @@ add = function(data){
 };
 update = function(id, data){
     return new Promise(function (resolve) {
-        Auction.findById(id, function (err, auction) {
+        Auction.findOne({_id: id}).exec(function (err, auction) {
             if(auction == null){ resolve({"success": false, "message": "no exists"}); return null }
             /*var modifiers = [];
             var bonusLists = [];
@@ -124,9 +135,27 @@ update = function(id, data){
         });
     });
 };
+end = function(id){
+    return new Promise(function(resolve){
+        Auction.findOne({_id: id}).exec(function (err, auction) {
+            if(auction == null){ resolve({"success": false, "message": "no exists"}); return null }
+            auction.finalizada = true;
+            auction.fecha_actualizado = Date.now();
+            auction.save(function (err) {
+                if (err != null) {
+                    console.log(err);
+                    resolve({"success": false, "message": err.message, "data": data});
+                } else {
+                    resolve({"success": true, "message": "", "data": auction});
+                }
+            });
+
+        });
+    });
+};
 remove = function(id){
     return new Promise(function (resolve) {
-        Auction.findById(id, function (err, auction) {
+        Auction.findOne({_id: id}).exec(function (err, auction) {
             auction.remove(function (err) {
                 if (err != null) {
                     resolve({"sucess": false, "message": err.message});
@@ -194,10 +223,12 @@ module.exports = {
     findAllAPI: findAllAPI,
     findById: findById,
     findByIdAPI: findByIdAPI,
+    findEndedNotMarked: findEndedNotMarked,
     add: add,
     addAPI: addAPI,
     update: update,
     updateAPI: updateAPI,
     remove: remove,
-    removeAPI: removeAPI
+    removeAPI: removeAPI,
+    end: end
 };

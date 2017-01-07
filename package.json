@@ -4,13 +4,13 @@
   "description": "An scrapper for the world of warcraft auction house",
   "main": "./server/server.js",
   "dependencies": {
-    "async": "^2.0.0-rc.6",
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "method-override": "^2.3.6",
-    "mongoose": "^4.5.2",
-    "nconf": "^0.8.4",
-    "node-cron": "^1.1.1"
+    "async": "*",
+    "body-parser": "*",
+    "express": "*",
+    "method-override": "*",
+    "mongoose": "*",
+    "nconf": "*",
+    "node-cron": "*"
   },
   "devDependencies": {},
   "scripts": {

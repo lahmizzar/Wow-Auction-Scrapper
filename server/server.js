@@ -2,7 +2,7 @@
  * Created by chuclucillo on 27/06/16.
  */
 'use strict';
-var express, nconf, bodyParser, methodOverride, mongoose, app;
+var express, nconf, bodyParser, methodOverride, mongoose, q, app;
 express = require("express");
 nconf = require("nconf");
 bodyParser = require("body-parser");
@@ -39,6 +39,7 @@ auctions.route('/auctions/:id')
     .delete(AuctionCtrl.removeAPI);
 
 app.use('/api', auctions);
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + nconf.get('database:host') + ':' + nconf.get('database:port') + '/' + nconf.get('database:db'), function (err) {
     if(err) {
         console.log('ERROR: connecting to Database. ' + err);

@@ -2,7 +2,7 @@
  * Created by chuclucillo on 1/07/16.
  */
 var https, nconf;
-https = require('https');
+https = require("https");
 nconf = require("nconf");
 
 nconf.file({ file: './conf.json' });

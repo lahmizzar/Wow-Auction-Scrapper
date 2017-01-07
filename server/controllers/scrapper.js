@@ -17,6 +17,7 @@ nconf.file({ file: './conf.json' });
 exports.initSchedules = function() {
     status = 'running';
     cron_auctions = cron.schedule(nconf.get('intervals:notify'), task_auctions);
+    //task_auctions();
 };
 exports.statusSchedules = function() { return status};
 exports.pauseSchedules = function() {
@@ -92,36 +93,69 @@ var task_auctions = function() {
                 });
         },
         function(data, callback_1){
-            var auctions = data.auctions;
-            console.log('principio:' + auctions.length);
-            auctions.forEach(function(auction){
+            var auctions = data.auctions,
+                contador = 0,
+                updated = 0,
+                inserted = 0;
+            console.log('-- Auctions a procesar:' + auctions.length);
+            async.each(auctions, function(auction, callback_2){
+                contador++;
+                //console.log('--- processing auction: ' + contador);
                 auctionsCtrl.findById(auction.auc)
                     .then(function (response) {
                         if (response.success && response.data != null) {
-                            //console.log('si ta:' + auction.auc);
                             auctionsCtrl.update(auction.auc, auction).then(function (response) {
                                 if (!response.success)
                                     console.log('Error update: ' + auction.auc + ' - ' + response.message);
-                                callback_1(null);
+                                updated++;
+                                callback_2(null);
                             });
                         } else {
-
                             auctionsCtrl.add(auction).then(function (response) {
                                 if (!response.success)
                                     console.log('Error add: ' + auction.auc + ' - ' + response.message);
-                                callback_1(null);
+                                //console.log('--- insert:' + auction.auc);
+                                inserted++;
+                                callback_2(null);
                             });
                         }
                     });
+            }, function (err){
+                if( err ) {
+                    console.log('-- Ocurrió un error procesando auctions');
+                } else {
+                    console.log('-- auctions procesados (' + inserted + ' insertados, ' + updated + ' actualizados)');
+                }
+                callback_1(null);
             });
         },
         function(callback_1) {
+            var auctionsToEnd = null;
             console.log('- Ending Auctions ended...');
-            callback_1(null, 'done');
+            auctionsCtrl.findEndedNotMarked(timer)
+                .then(function(response){
+                    console.log(response.data);
+                    if(response.success && response.data != null){
+                        auctionsToEnd = response.data;
+                        async.each(auctionsToEnd, function(auction, callback_2){
+                            auctionsCtrl.end(auction._id)
+                                .then(function (response) {
+                                    if(!response.success){
+                                        console.log('Error ending auction: ' + auction._id + ' - ' + response.message);
+                                    }
+                                    callback_2(null);
+                                });
+                        }, function(err){
+                            if(err) console.log(err.message);
+                            callback_1(null);
+                        });
+                    }else{
+                        callback_1(null);
+                    }
+                });
         }
     ],function(err) {
-        if(err)
-            console.log(err.message);
+        if(err) console.log(err.message);
         console.log('-== End Get API Auctions==-');
         console.log('Operation elapsed', ((new Date().getTime() - timer.getTime())/1000), 'seconds.');
     });
