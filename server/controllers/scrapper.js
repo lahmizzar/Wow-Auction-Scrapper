@@ -97,7 +97,7 @@ var task_auctions = function() {
                 contador = 0,
                 updated = 0,
                 inserted = 0;
-            console.log('-- Auctions a procesar:' + auctions.length);
+            console.log('-- Auctions a procesar: ' + auctions.length);
             async.each(auctions, function(auction, callback_2){
                 contador++;
                 //console.log('--- processing auction: ' + contador);
@@ -124,17 +124,17 @@ var task_auctions = function() {
                 if( err ) {
                     console.log('-- Ocurrió un error procesando auctions');
                 } else {
-                    console.log('-- auctions procesados (' + inserted + ' insertados, ' + updated + ' actualizados)');
+                    console.log('-- auctions procesados: ' + inserted + ' insertados, ' + updated + ' actualizados');
                 }
                 callback_1(null);
             });
         },
         function(callback_1) {
             var auctionsToEnd = null;
+            var ended = 0;
             console.log('- Ending Auctions ended...');
             auctionsCtrl.findEndedNotMarked(timer)
                 .then(function(response){
-                    console.log(response.data);
                     if(response.success && response.data != null){
                         auctionsToEnd = response.data;
                         async.each(auctionsToEnd, function(auction, callback_2){
@@ -143,6 +143,7 @@ var task_auctions = function() {
                                     if(!response.success){
                                         console.log('Error ending auction: ' + auction._id + ' - ' + response.message);
                                     }
+                                    ended++;
                                     callback_2(null);
                                 });
                         }, function(err){
@@ -150,6 +151,7 @@ var task_auctions = function() {
                             callback_1(null);
                         });
                     }else{
+                        console.log('-- auctions ended ' + ended);
                         callback_1(null);
                     }
                 });
@@ -157,6 +159,6 @@ var task_auctions = function() {
     ],function(err) {
         if(err) console.log(err.message);
         console.log('-== End Get API Auctions==-');
-        console.log('Operation elapsed', ((new Date().getTime() - timer.getTime())/1000), 'seconds.');
+        console.log('Operation elapsed ' + ((new Date().getTime() - timer.getTime())/1000), 'seconds.');
     });
 };

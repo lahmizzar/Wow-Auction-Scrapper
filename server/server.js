@@ -2,12 +2,14 @@
  * Created by chuclucillo on 27/06/16.
  */
 'use strict';
-var express, nconf, bodyParser, methodOverride, mongoose, q, app;
+var express, nconf, bodyParser, methodOverride, mongoose, q, app, logger, path;
 express = require("express");
 nconf = require("nconf");
 bodyParser = require("body-parser");
 methodOverride = require("method-override");
 mongoose = require("mongoose");
+logger = require("./aux/logger");
+
 app = express();
 
 nconf.file({ file: './conf.json' });
